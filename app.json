@@ -5,6 +5,14 @@
       "bundler": "metro"
     },
     "name": "MapRouteSaver",
-    "slug": "MapRouteSaver"
+    "slug": "MapRouteSaver",
+    "plugins": [
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Allow $(PRODUCT_NAME) to access your device motion."
+        }
+      ]
+    ]
   }
 }
