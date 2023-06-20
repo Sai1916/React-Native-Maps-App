@@ -13,7 +13,7 @@ const places = () => {
           }}
           style={StyleSheet.absoluteFillObject}
           query={{
-            key: "AIzaSyD9KHk0WErLGjt3lmbjy4-TXNt3I4CkDOY",
+            key: API_KEY,
             language: 'en',
           }}
         />
