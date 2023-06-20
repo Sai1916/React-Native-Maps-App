@@ -2,8 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { DeviceMotion } from "expo-sensors";
 import * as Location from "expo-location";
-import MapView, { Marker } from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
 import { useRouter } from "expo-router";
 import { Ionicons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
@@ -11,11 +9,9 @@ import { KeyboardAvoidingView } from "react-native";
 import BottomSheetComponent from "../components/BottomSheetComponent";
 import InputComp from "../components/InputComp";
 import MapViewComponent from "../components/MapViewComponent";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete/GooglePlacesAutocomplete";
 
 export default function Page() {
-  const API_KEY = "AIzaSyD9KHk0WErLGjt3lmbjy4-TXNt3I4CkDOY";
-
+ 
   const router = useRouter();
 
   const [locationArray, setLocationArray] = useState([]);

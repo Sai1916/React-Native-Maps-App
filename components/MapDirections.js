@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import MapViewDirections from "react-native-maps-directions";
+import {API_KEY} from '@env'
 
 const MapDirections = ({destination,setDistance,setDuration}) => {
-
-    const API_KEY = "AIzaSyD9KHk0WErLGjt3lmbjy4-TXNt3I4CkDOY";
 
   return (
     <MapViewDirections

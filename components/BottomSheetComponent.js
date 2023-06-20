@@ -34,8 +34,8 @@ const BottomSheetComponent = ({ destinationDetails, distance, duration }) => {
       <View style={styles.contentContainer}>
         {/* <Text>Awesome 🎉</Text> */}
         <Text>Destination: {destinationDetails}</Text>
-        <Text>Distance: {distance} km</Text>
-        <Text>Duration: {duration} min</Text>
+        <Text>Distance: {distance <  1 ? `${distance*1000} m` : `${distance} km`}</Text>
+        <Text>Duration: {duration < 1 ? `${duration*60} s` : `${duration.toFixed(2)} min` }</Text>
         <FlatList
           data={items}
           renderItem={({ item }) => (

@@ -2,12 +2,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete/GooglePlacesAutocomplete";
+import {API_KEY} from '@env'
+
 
 const InputComp = ({setDestination, setDestinationDetails, setFocused}) => {
     
     const ref = useRef(null);
-
-    const API_KEY = "AIzaSyD9KHk0WErLGjt3lmbjy4-TXNt3I4CkDOY";
 
     useEffect(() => {
         setFocused(ref.current?.isFocused());
