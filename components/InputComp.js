@@ -1,13 +1,17 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useRef } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete/GooglePlacesAutocomplete";
 import {API_KEY} from '@env'
+import { useRouter } from "expo-router";
 
 
 const InputComp = ({setDestination, setDestinationDetails, setFocused}) => {
     
     const ref = useRef(null);
+
+    const router = useRouter();
+
 
     useEffect(() => {
         setFocused(ref.current?.isFocused());
@@ -28,13 +32,18 @@ const InputComp = ({setDestination, setDestinationDetails, setFocused}) => {
         setDestination(details.geometry.location);
         ref.current?.blur();
       }}
-      nearbyPlacesAPI="GooglePlacesSearch"
+      nearbyPlacesAPI="GoogleReverseGeocoding"
       textInputProps={{
         clearButtonMode: "never",
         placeholderTextColor: "#000",
         cursorColor: "#000",
       }}
-      isFo
+      renderHeaderComponent={() => (
+        <Pressable style={styles.inputHeader} onPress={() =>  router.push({pathname: '/locateDest'}) }>
+          <Text style={styles.headerText}>Locate destination on Map</Text>
+          <FontAwesome5 name="location-arrow" size={22} color="black" />
+        </Pressable>
+      )}
       debounce={400}
       renderRightButton={() => (
         <TouchableOpacity
@@ -73,12 +82,12 @@ const InputComp = ({setDestination, setDestinationDetails, setFocused}) => {
       query={{
         key: API_KEY, 
         language: "en",
-        types: "geocode",
+        types: ["geocode","address", "establishment","(regions)","(cities)"],
       }}
       onFail={(error) => console.error(error)}
       fetchDetails={true}
     />
-  );
+  ); 
 };
 
 export default InputComp;
@@ -90,4 +99,18 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff",
     marginLeft: 5,
   },
+  inputHeader:{
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    borderBottomColor: "lightgray",
+    borderBottomWidth: 1,
+    padding: 14,
+  },
+  headerText:{
+    fontSize: 14,
+    fontWeight: "bold",
+  }
 });

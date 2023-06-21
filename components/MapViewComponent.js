@@ -7,15 +7,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 const MapViewComponent = ({
   location,
   destination,
+  destinationTitle,
   locationArray,
   setLocation,
   setLocationArray,
   setDistance,
   setDuration,
+  setDestinationTitle
 }) => {
   const mapRef = useRef(null);
 
-  const onDestinationPress = () => {
+  const onDestinationPress = (e) => {
     setLocation({ coords: e.nativeEvent.coordinate });
 
     mapRef.current?.animateToRegion({
@@ -67,9 +69,11 @@ const MapViewComponent = ({
           destination={destination}
           setDistance={setDistance}
           setDuration={setDuration}
+          setDestinationTitle={setDestinationTitle}
         />
       )}
       <Marker
+        title="Your Location"
         coordinate={{
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
@@ -97,6 +101,7 @@ const MapViewComponent = ({
             latitude: destination.lat,
             longitude: destination.lng,
           }}
+          title={destinationTitle}
         >
           <MaterialIcons name="pin-drop" size={26} color="black" />
         </Marker>

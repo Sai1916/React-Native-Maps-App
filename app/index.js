@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { DeviceMotion } from "expo-sensors";
 import * as Location from "expo-location";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
@@ -21,6 +21,7 @@ export default function Page() {
   const [location, setLocation] = useState(null);
   // const [destination, setDestination] = useState({lat: 16.5842730, lng: 80.5163999}); 
   const [destination, setDestination] = useState(null); 
+  const [destinationTitle, setDestinationTitle] = useState('');  
 
   const [destinationDetails, setDestinationDetails] = useState(null);
 
@@ -28,6 +29,9 @@ export default function Page() {
 
   const [distance, setDistance] = useState(null);
   const [duration, setDuration] = useState(null);
+
+  const { destinationLoc } = useLocalSearchParams();
+  // console.log("params: ", destinationLoc?.destLat);    
 
   useEffect(() => {
     (async () => {
@@ -42,17 +46,25 @@ export default function Page() {
         timeInterval: 300,
         mayShowUserSettingsDialog: true,
       });
-      setLocation(location);
-      setLocationArray([
-        ...locationArray,
-        {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        },
-      ]);
-    })();
-  },[]);
+      setLocation(location); 
+      // setLocationArray([
+      //   ...locationArray,
+      //   {
+      //     latitude: location.coords.latitude,
+      //     longitude: location.coords.longitude,
+      //   },
+      // ]);
+    })(); 
+  },[location]);
 
+  useEffect(() => { 
+    if(destinationLoc){
+      // console.log("destinationLoc: ", destinationLoc?.destLat, destinationLoc?.destLng);
+      setDestination({lat: destinationLoc?.destLat, lng: destinationLoc?.destLng});
+      // setDestinationTitle(params.title);
+    } 
+  },[destinationLoc])
+ 
   // console.log("location array: ", locationArray);
 
   let text = "Loading...";
@@ -94,17 +106,19 @@ export default function Page() {
         <MapViewComponent
           location={location}
           destination={destination}
+          destinationTitle={destinationTitle}
           locationArray={locationArray}
           setLocation={setLocation}
           setLocationArray={setLocationArray}
           setDistance={setDistance}
           setDuration={setDuration}
+          setDestinationTitle={setDestinationTitle}
         />
       )}
 
       {destination != null && (
         <BottomSheetComponent
-          destinationDetails={destinationDetails}
+          destinationTitle={destinationTitle}
           distance={distance}
           duration={duration}
         />

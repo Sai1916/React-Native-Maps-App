@@ -3,7 +3,7 @@ import React from "react";
 import MapViewDirections from "react-native-maps-directions";
 import {API_KEY} from '@env'
 
-const MapDirections = ({origin,destination,setDistance,setDuration}) => {
+const MapDirections = ({origin,destination,setDistance,setDuration,setDestinationTitle}) => {
 
   return (
     <MapViewDirections
@@ -27,10 +27,11 @@ const MapDirections = ({origin,destination,setDistance,setDuration}) => {
       }}
       onReady={(result) => {
         console.log("result: " + result.legs[0].end_address); 
-        console.log(`Distance: ${result.distance} km`);
-        console.log(`Duration: ${result.duration} min.`);
+        // console.log(`Distance: ${result.distance} km`);
+        // console.log(`Duration: ${result.duration} min.`);
         setDistance(result.distance);
         setDuration(result.duration);
+        setDestinationTitle(result?.legs[0]?.end_address);
       }}
       onError={(errorMessage) => {
         // console.log('GOT AN ERROR');

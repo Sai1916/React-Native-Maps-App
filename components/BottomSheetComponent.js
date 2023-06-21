@@ -4,7 +4,7 @@ import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import items from "../assets/items";
 import Item from "./Item";
 
-const BottomSheetComponent = ({ destinationDetails, distance, duration }) => {
+const BottomSheetComponent = ({ destinationTitle, distance, duration }) => {
   const bottomSheetRef = useRef(null);
 
   const [selected, setSelected] = useState({
@@ -12,9 +12,8 @@ const BottomSheetComponent = ({ destinationDetails, distance, duration }) => {
   });
 
   const booking = () => {
-    Alert.alert("Booking", "Your ride has been booked successfully")
-  }
-
+    Alert.alert("Booking", "Your ride has been booked successfully");
+  };
 
   // variables
   const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
@@ -33,9 +32,16 @@ const BottomSheetComponent = ({ destinationDetails, distance, duration }) => {
     >
       <View style={styles.contentContainer}>
         {/* <Text>Awesome 🎉</Text> */}
-        <Text>Destination: {destinationDetails}</Text>
-        <Text>Distance: {distance <  1 ? `${distance*1000} m` : `${distance} km`}</Text>
-        <Text>Duration: {duration < 1 ? `${duration*60} s` : `${duration.toFixed(2)} min` }</Text>
+        <Text>Destination: {destinationTitle}</Text>
+        <View style={styles.textView}>
+          <Text style={styles.displayText}>
+            Dist: {distance < 1 ? `${distance * 1000} m` : `${distance} km`}
+          </Text>
+          <Text style={styles.displayText}>
+            Time:{" "}
+            {duration < 1 ? `${duration * 60} s` : `${duration.toFixed(2)} min`}
+          </Text>
+        </View>
         <FlatList
           data={items}
           renderItem={({ item }) => (
@@ -45,11 +51,10 @@ const BottomSheetComponent = ({ destinationDetails, distance, duration }) => {
         />
 
         {selected.id != null && (
-          <View style={{ alignItems: "center",marginVertical: 10 }}>
-            <Button title="Book Ride" style={styles.btn} onPress={booking}/>
+          <View style={{ alignItems: "center", marginVertical: 10 }}>
+            <Button title="Book Ride" style={styles.btn} onPress={booking} />
           </View>
         )}
-
       </View>
     </BottomSheet>
   );
@@ -61,9 +66,20 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 10,
   },
-  btn:{
+  btn: {
     // marginVertical: 20,
-    backgroundColor: '#000',
-    color: '#fff',
+    backgroundColor: "#000",
+    color: "#fff",
+  },
+  textView:{
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    marginVertical: 10,
+  },
+  displayText:{
+    fontSize: 22,
+    fontWeight: "bold",
   }
 });
