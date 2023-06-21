@@ -19,7 +19,8 @@ export default function Page() {
   const [focused, setFocused] = useState(false);
 
   const [location, setLocation] = useState(null);
-  const [destination, setDestination] = useState({lat: 16.5842730, lng: 80.5163999}); 
+  // const [destination, setDestination] = useState({lat: 16.5842730, lng: 80.5163999}); 
+  const [destination, setDestination] = useState(null); 
 
   const [destinationDetails, setDestinationDetails] = useState(null);
 

@@ -1,6 +1,6 @@
 import { Alert, Button, FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import items from "../assets/items";
 import Item from "./Item";
 
@@ -41,7 +41,7 @@ const BottomSheetComponent = ({ destinationDetails, distance, duration }) => {
           renderItem={({ item }) => (
             <Item item={item} selected={selected} setSelected={setSelected} />
           )}
-          keyExtractor={(item) => item.id.toString()}
+          // keyExtractor={(item) => item.id.toString()}
         />
 
         {selected.id != null && (
